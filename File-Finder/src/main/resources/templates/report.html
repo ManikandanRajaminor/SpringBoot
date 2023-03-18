@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>File Finder Application</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.min.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+<!-- Datatable plugin CSS file -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!-- jQuery library file -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.5.1.js">
+	
+</script>
+
+<!-- Datatable plugin JS library file -->
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" th:src="@{/js/file-finder.js}"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+</head>
+
+<body translate="no">
+
+	<div class="loader1"></div>
+
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+		<!-- Add navbar content -->
+		<div class="container-fluid">
+
+			<!-- Include .navbar-header class 
+	                 in <div>  (optional)-->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/filefinder"> File Finder Application </a>
+			</div>
+
+			<!-- Include navbar list 
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/pbm">
+						PBM
+					</a></li>
+				<li><a href="/retail">Retail</a></li>
+			</ul>-->
+		</div>
+
+	</nav>
+	<div>
+		<table class="table table-striped table-bordered table-sm"
+			cellspacing="0" width="100%" id="tableID" data-search="true"
+			data-custom-search="customSearch">
+			<thead>
+				<tr>
+					<th class="th-sm">Line of Business</th>
+					<th class="th-sm">Requisition ID</th>
+					<th class="th-sm">Requisition Title</th>
+					<th class="th-sm">Requester</th>
+					<th class="th-sm">Requisition Date</th>
+					<th class="th-sm">Requisition Status</th>
+					<th class="th-sm">PO ID</th>
+					<th class="th-sm">PO Status</th>
+					<th class="th-sm">Invoice ID</th>
+					<th class="th-sm">Invoice Date</th>
+					<th class="th-sm">Invoice Status</th>
+					<th class="th-sm">eform no</th>
+					<th class="th-sm">Supplier</th>
+					<th class="th-sm">Download</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="sale : ${listFinder}">
+					<td th:text="${sale.line_of_business}">line_of_business</td>
+					<td><a
+						th:href="'/filefinder/downloadFile?line_of_business=' +${sale.line_of_business}+'&requisition_id=' +${sale.requisition_id}"
+						th:text="${sale.requisition_id}" /></td>
+					<td style='word-wrap: break-word'
+						th:text="${sale.requisition_title}">requisition_title</td>
+					<pre><td th:text="${sale.requester}">requester</td></pre>
+					<td th:text="${sale.requisition_from_date}">requisition_from_date</td>
+					<td th:text="${sale.requisition_status}">requisition_status</td>
+					<td><a
+						th:href="'/filefinder/downloadFile?line_of_business=' +${sale.line_of_business}+'&po_id=' +${sale.po_id}"
+						th:text="${sale.po_id}" /></td>
+					<td th:text="${sale.po_status}">po_status</td>
+					<td><a
+						th:href="'/filefinder/downloadFile?line_of_business=' +${sale.line_of_business}+'&invoice_id=' +${sale.invoice_id}"
+						th:text="${sale.invoice_id}" /></td>
+					<td th:text="${sale.invoice_date}">invoice_date</td>
+					<td th:text="${sale.invoice_status}">invoice_status</td>
+					<td th:text="${sale.eform_cw_no_wo}">eform_cw_no_wo</td>
+					<td th:text="${sale.supplier}">supplier</td>
+					<td>
+						<button role = "button" class="btn btn-success btn-outline-dark" data-title="Download"
+							data-toggle="modal" data-target="#download"
+							onclick='return download()'>
+							<i class="fa fa-download"> Download</i></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('#tableID')
+									.DataTable(
+											{
+												'rowCallback' : function(nRow,
+														aData, iDataIndex) {
+													//$(nRow).attr('id', iDataIndex);
+													$('td:eq(0)', nRow).attr(
+															'id', iDataIndex);
+													$('td:eq(1)', nRow).attr(
+															'id',
+															'-' + iDataIndex);
+													$('td:eq(6)', nRow)
+															.attr(
+																	'id',
+																	'-'
+																			+ iDataIndex
+																			+ ""
+																			+ iDataIndex);
+													$('td:eq(8)', nRow)
+															.attr(
+																	'id',
+																	'-'
+																			+ iDataIndex
+																			+ ""
+																			+ iDataIndex
+																			+ ""
+																			+ iDataIndex);
+													$('td:eq(13)', nRow).attr(
+															'id', iDataIndex);
+												},
+												dom : 'Bfrtip',
+												buttons : [
+														'pageLength',
+														'copy',
+														'csv',
+														'excel',
+														{
+															extend : 'pdfHtml5',
+															title : function() {
+																return "File Finder Application";
+															},
+															orientation : 'landscape',
+															pageSize : 'LEGAL',
+															text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+															titleAttr : 'PDF'
+														}, ],
+
+											});
+						});
+	</script>
+</body>
+
+<script>
+	var millisecondsToWait = 500;
+	setTimeout(function() {
+		$('.loader1').fadeOut();
+	}, millisecondsToWait);
+</script>
+
+</html>

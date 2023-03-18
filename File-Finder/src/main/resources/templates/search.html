@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>File Finder Application</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.min.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/file-finder.js}"></script>
+
+</head>
+
+<body translate="no">
+	<div id="loader1" style="display: none" class="loader"></div>
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+		<!-- Add navbar content -->
+		<div class="container-fluid">
+
+			<!-- Include .navbar-header class 
+	                 in <div>  (optional)-->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/filefinder"> File Finder Application </a>
+			</div>
+
+			<!-- Include navbar list 
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/pbm">
+						PBM
+					</a></li>
+				<li><a href="/retail">Retail</a></li>
+			</ul>-->
+		</div>
+
+	</nav>
+	<div>
+		<form class="cf" action="#" th:action="@{/search}"
+			th:object="${finder}" method="post" autocomplete="off">
+			<div id="error" th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"
+					class="alert alert-danger" />
+			</div>
+			<div class="half left c">
+				<div class="dropdown">
+
+					<input class="dropdown-toggle" type="text" placeholder="RETAIL/PBM"
+						id="hlob" data-toggle="dropdown"
+						onchange="return setIP(this); resetError();"> <input
+						type="hidden" id="lob" th:field="*{line_of_business}" />
+					<ul class="d-none d-md-block dropdown-menu">
+						<li><a href="javascript:setLineOfBusiness('PBM');">PBM</a></li>
+						<li><a href="javascript:setLineOfBusiness('RETAIL');">RETAIL</a></li>
+					</ul>
+				</div>
+				<input type="text" id="input-name" th:field="*{requisition_id}"
+					placeholder="Requisition ID" onkeydown="resetError();"> <input
+					type="text" id="input-subject" th:field="*{po_id}"
+					placeholder="Purchase Order ID" onkeydown="resetError();">
+				<input type="text" id="input-name" th:field="*{invoice_id}"
+					placeholder="Invoice ID" onkeydown="resetError();">
+
+			</div>
+			<div class="half right cf">
+				<input type="text" id="input-subject" th:field="*{requester}"
+					placeholder="Requester" onkeydown="resetError();"> <input
+					data-date-format="yyyy-mm-dd" placeholder="Requisition From Date"
+					th:field="*{requisition_from_date}" id="fromDatePicker"
+					onclick="resetError();"> <input
+					data-date-format="yyyy-mm-dd" th:field="*{requisition_to_date}"
+					placeholder="Requisition To Date" id="toDatePicker"
+					onclick="resetError();"> <input type="text"
+					th:field="*{supplier}" id="input-subject" placeholder="Supplier"
+					onkeydown="resetError();">
+			</div>
+			<input type="submit" value="Search" id="input-submit"
+				onclick="makeSearch();">
+		</form>
+	</div>
+	<script type="text/javascript">
+		window.onload = function() {
+			if (document.getElementById('lob').value != "") {
+				document.getElementById('hlob').value = document
+						.getElementById('lob').value;
+			}
+		};
+
+		$(function() {
+			$('#fromDatePicker').datepicker({
+				numberOfMonths : 1,
+				weekStart : 1,
+				// daysOfWeekHighlighted: "6,0",
+				autoclose : true,
+				todayHighlight : true,
+			/*
+			dateFormat : 'yy-mm-dd',
+			yearRange : new Date().getFullYear().toString() + ':'
+					+ new Date().getFullYear().toString(),
+			onSelect : function(selected) {
+				if (selected) {
+					var minDate = new Date(selected);
+					minDate.setDate(minDate.getDate() + 1);
+					$('#toDatePicker').datepicker("option",
+							"minDate", minDate);
+					var maxDate = new Date(selected);
+					maxDate.setMonth(maxDate.getMonth() + 1);
+					maxDate.setDate(maxDate.getDate() - 1);
+					$('#toDatePicker').datepicker("option",
+							"maxDate", maxDate);
+				} else {
+					$("#toDatePicker").datepicker("option",
+							"minDate", null);
+					$("#toDatePicker").datepicker("option",
+							"maxDate", null);
+				}
+			}
+			 */
+			});
+			$('#toDatePicker').datepicker({
+				numberOfMonths : 1,
+				weekStart : 1,
+				// daysOfWeekHighlighted: "6,0",
+				autoclose : true,
+				todayHighlight : true,
+			/*
+			dateFormat : 'yy-mm-dd',
+			yearRange : new Date().getFullYear().toString() + ':'
+					+ new Date().getFullYear().toString(),
+			onSelect : function(selected) {
+				var maxDate = new Date(selected);
+				maxDate.setDate(maxDate.getDate() - 1);
+				$('#fromDatePicker1').datepicker("option",
+						"maxDate", maxDate);
+				var minDate = new Date(selected);
+				minDate.setMonth(minDate.getMonth() - 1);
+				minDate.setDate(minDate.getDate() + 1);
+				$('#fromDatePicker').datepicker("option",
+						"minDate", minDate);
+
+			}
+			 */
+			});
+		});
+
+		if (document.location.search.match(/type=embed/gi)) {
+			window.parent.postMessage("resize", "*");
+		}
+
+		//$('.loader').fadeOut();
+
+		$(window).bind("pageshow", function(event) {
+			$("#loader1").hide();
+		});
+	</script>
+	<!-- 
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"
+		type="text/javascript"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+		type="text/javascript"></script>
+	<link
+		href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+		rel="Stylesheet" type="text/css" />
+ 	-->
+</body>
+
+</html>

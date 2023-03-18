@@ -1,0 +1,726 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>CVSART Application</title>
+<link
+	href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
+	rel='stylesheet'>
+<link href='' rel='stylesheet'>
+<style>.register {
+    background: -webkit-linear-gradient(left, rgb(255, 128, 128), #00c6ff);
+    margin-top: -1%;
+    padding: 2%;
+    width: 65%;
+}
+
+.register-left {
+    text-align: center;
+    color: #fff;
+    margin-top: 4%;
+}
+
+.register-left input {
+    border: none;
+    border-radius: 2.5rem;
+    padding: 2%;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #383d41;
+    margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+
+.register-right {
+    background: #f8f9fa;
+    border-top-left-radius: 10% 60%;
+    border-bottom-left-radius: 10% 60%;
+}
+
+.register-left img {
+    margin-top: 15%;
+    margin-bottom: 5%;
+    width: 25%;
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 1s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.register-left p {
+    font-weight: lighter;
+    padding: 12%;
+    margin-top: -9%;
+}
+
+.register .register-form {
+    padding: 10%;
+    margin-top: 8%;
+}
+
+.btnRegister {
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+}
+
+.register .nav-tabs {
+    margin-top: 1%;
+    border: none;
+    background: #0062cc;
+    border-radius: 1.5rem;
+    width: 21%;
+    float: right;
+}
+
+.register .nav-tabs .nav-link {
+    padding: 6%;
+    height: 34px;
+    font-weight: 600;
+    color: #fff;
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+
+.register .nav-tabs .nav-link:hover {
+    border: none;
+}
+
+.register .nav-tabs .nav-link.active {
+    width: 100px;
+    color: #0062cc;
+    border: 2px solid #0062cc;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+
+.register-heading {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15%;
+    color: #495057;
+}
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	z-index: 9999;
+	background: url('http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif?e44397') 50% 50% no-repeat rgb(249,249,249);
+}
+
+.loader1 {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+	z-index: 9999;
+	background: url('http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif?e44397') 50% 50% no-repeat rgb(249,249,249);
+}
+
+*,
+*:before,
+*:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	/*background: #f1f1f1;*/
+	font-family: 'Merriweather', sans-serif;
+	padding: 1em;
+}
+
+h1 {
+	text-align: center;
+	color: #a8a8a8;
+	text-shadow: 1px 1px 0 white;
+}
+
+form {
+	max-width: 600px;
+	text-align: center;
+	margin: 20px auto;
+}
+
+form input,
+form textarea,
+form imput data-date-format {
+	border: 0;
+	outline: 0;
+	padding: 1em;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	display: block;
+	width: 100%;
+	margin-top: 1em;
+	font-family: 'Merriweather', sans-serif;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	resize: none;
+}
+
+form input:focus,
+form textarea:focus {
+	-moz-box-shadow: 0 0px 2px #e74c3c !important;
+	-webkit-box-shadow: 0 0px 2px #e74c3c !important;
+	box-shadow: 0 0px 2px #e74c3c !important;
+}
+
+form #input-submit {
+	color: white;
+	background: #e74c3c;
+	cursor: pointer;
+}
+
+form #input-submit:hover {
+	-moz-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+	-webkit-box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+	box-shadow: 0 1px 1px 1px rgba(170, 170, 170, 0.6);
+}
+
+form textarea {
+	height: 126px;
+}
+
+.half {
+	float: left;
+	width: 48%;
+	margin-bottom: 1em;
+}
+
+.right {
+	width: 50%;
+}
+
+.left {
+	margin-right: 2%;
+}
+
+@media (max-width: 480px) {
+	.half {
+		width: 100%;
+		float: none;
+		margin-bottom: 0;
+	}
+}
+
+/* Clearfix */
+.cf:before,
+.cf:after {
+	content: " ";
+	/* 1 */
+	display: table;
+	/* 2 */
+}
+
+.cf:after {
+	clear: both;
+}
+
+.navbar-custom {
+    background-color: lightgrey;
+}
+
+.dataTables_wrapper {
+    font-family: Verdana;
+    font-size: 12px;
+    direction: ltr;
+    position: relative;
+    clear: both;
+    *zoom: 1;
+    zoom: 1;
+}
+
+.dataTables_wrapper1 {
+    font-family: Verdana;
+    font-size: 12px;
+    direction: ltr;
+    position: relative;
+    clear: both;
+    *zoom: 1;
+    zoom: 1;
+}
+
+.dataTables_wrapper2 {
+    font-family: Verdana;
+ }
+ 
+ table.dataTable tbody tr.myodd{
+    background-color:#f2dede;
+}
+table.dataTable tbody tr.myeven{
+    background-color:#bce8f1;
+}
+
+</style>
+<script type='text/javascript'
+	src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript'
+	src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+<script type='text/javascript'
+	src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+	
+<!-- Datatable plugin CSS file -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<!-- jQuery library file -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.5.1.js">
+	
+</script>
+
+<!-- Datatable plugin JS library file -->
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" th:src="@{/js/file-finder.js}"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+</head>
+<body oncontextmenu='return false' class='snippet-body'>
+	<div class="container register dataTables_wrapper1">
+		<div class="row">
+			<div class="col-md-12 register-right">
+				<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="home-tab"
+						data-toggle="tab" href="#home" role="tab" aria-controls="home"
+						aria-selected="true">Search</a></li>
+					<li class="nav-item"><a class="nav-link" id="profile-tab"
+						data-toggle="tab" href="#profile" role="tab"
+						aria-controls="profile" aria-selected="false">Advanced</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="home" role="tabpanel"
+						aria-labelledby="home-tab">
+						<h3 class="register-heading dataTables_wrapper2">Requisition Report</h3>
+						<div class="row register-form">
+							<div class="col-md-6">
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option class="hidden" selected disabled>Realm</option>
+										<option>S4</option>
+										<option>AETNA</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Requisition" value="" />
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control dataTables_wrapper1"
+										placeholder="PO" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Requester" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Purchase Class" value="" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="text" name="txtEmpPhone" class="form-control dataTables_wrapper1"
+										placeholder="Eform" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Status" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Submit Date From" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Submit Date To" value="" />
+								</div>
+								
+								<input type="submit" class="btnRegister" value="Search" onclick="makeSearch();" />
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade show" id="profile" role="tabpanel"
+						aria-labelledby="profile-tab">
+						<h3 class="register-heading dataTables_wrapper2">Requisition Report</h3>
+						<div class="row register-form">
+							<div class="col-md-4">
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option class="hidden" selected disabled>Realm</option>
+										<option>S4</option>
+										<option>AETNA</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Requisition" value="" />
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control dataTables_wrapper1"
+										placeholder="PO" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Requester" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control dataTables_wrapper1"
+										placeholder="Purchase Class" value="" />
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>==</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" name="txtEmpPhone" class="form-control dataTables_wrapper1"
+										placeholder="Eform" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Status" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Submit Date From" value="" />
+								</div>
+								<div class="form-group">
+									<input type="text" name="Status" class="form-control dataTables_wrapper1"
+										placeholder="Submit Date To" value="" />
+								</div>
+								
+								<input type="submit" class="btnRegister" value="Search" onclick="makeSearch();" />
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>LIKE</option>
+										<option>!LIKE</option>
+										<option>NULL</option>
+										<option>!NULL</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>==</option>
+										<option>></option>
+										<option>>=</option>
+										<option><</option>
+										<option><=</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control dataTables_wrapper1" placeholder="Realm">
+										<option>==</option>
+										<option>></option>
+										<option>>=</option>
+										<option><</option>
+										<option><=</option>
+									</select>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</br></br>
+	<div id = "tableID1" style="display:none;">
+		<table class="table table-striped table-bordered table-sm"
+			cellspacing="0" width="100%" id="tableID" data-search="true"
+			data-custom-search="customSearch">
+			<thead>
+				<tr>
+					<th class="th-sm">Realm</th>
+					<th class="th-sm">Requisition</th>
+					<th class="th-sm">PO</th>
+					<th class="th-sm">Requester</th>
+					<th class="th-sm">Purchaser Class</th>
+					<th class="th-sm">Eform</th>
+					<th class="th-sm">Status</th>
+					<th class="th-sm">Submit Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				 <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	            <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>	                
+	            </tr>
+	             <tr>
+	                <td>S4</td>
+	                <td>PREQ12345</td>
+	                <td>PO3456</td>
+	                <td>Shyam</td>
+	                <td>PC1235</td>
+	                <td>Eform123</td>
+	                <td>Requested</td>
+	                <td>01/12/12</td>
+	            </tr>
+			</tbody>
+		</table>
+
+	</div>
+	<script type='text/javascript'>
+	$(document)
+			.ready(
+					function() {
+						$('#tableID')
+								.DataTable(
+										{
+											"rowCallback": function( row, data, index ) {
+									            if(index%2 == 0){
+									                $(row).removeClass('myodd myeven');
+									                $(row).addClass('myodd');
+									            }else{
+									                $(row).removeClass('myodd myeven');
+									                 $(row).addClass('myeven');
+									            }
+									          },
+											dom : 'Bfrtip',
+											buttons : [
+													'pageLength',
+													'copy',
+													'csv',
+													'excel',
+													{
+														extend : 'pdfHtml5',
+														title : function() {
+															return "File Finder Application";
+														},
+														orientation : 'landscape',
+														pageSize : 'LEGAL',
+														text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+														titleAttr : 'PDF'
+													}, ],
+
+										});
+					});
+	
+	function makeSearch() {
+		document.getElementById("tableID1").style.display='block'; 
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property resource="application.properties" />
+
+	<property name="HOME_LOG" value="${LOG_PATH}" />
+	<property name="LOG_FILE_NAME" value="filefinder" />
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProfile name="dev">
+		<appender name="ConsoleOutput"
+			class="ch.qos.logback.core.ConsoleAppender">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<Pattern>${PATTERN}</Pattern>
+			</layout>
+		</appender>
+		<!-- Logging at INFO level -->
+		<root level="info">
+			<appender-ref ref="ConsoleOutput" />
+		</root>
+
+		<!-- Logging at TRACE level -->
+		<logger name="com.log" level="trace" additivity="false">
+			<appender-ref ref="ConsoleOutput" />
+		</logger>
+	</springProfile>
+	<springProfile name="dev">
+		<appender name="FR"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${HOME_LOG}/${LOG_FILE_NAME}.log</file>
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>${HOME_LOG}/archived/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log
+				</fileNamePattern>
+				<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+				<totalSizeCap>${TOTAL_CAP_SIZE}</totalSizeCap>
+				<maxHistory>${MAX_HISTORY}</maxHistory>
+			</rollingPolicy>
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
+		<!-- Logging at INFO level -->
+		<root level="info">
+			<appender-ref ref="FR" />
+		</root>
+
+		<!-- Logging at TRACE level -->
+		<logger name="com.ariba" level="trace" additivity="false">
+			<appender-ref ref="FR" />
+		</logger>
+	</springProfile>
+</configuration>
